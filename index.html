@@ -3550,6 +3550,15 @@ function showEffect(className) {
             // 更新用戶數據到資料庫
             userRef.set(userData);
 
+
+            const leaderboardRef = database.ref('leaderboard/' + user.uid);
+leaderboardRef.set({
+    name: user.displayName,
+    score: userData.score,
+    level: userData.level
+});
+
+
             // 创建统计弹窗
             const statsOverlay = document.createElement('div');
             statsOverlay.style.cssText = `
