@@ -1503,8 +1503,18 @@ database.ref(`rooms/${currentRoomId}/${playerPath}`).update({
     document.getElementById('gradeSelection').style.display = 'none';
     document.getElementById('topicDetail').style.display = 'block';
     
-    // 根據年級加載相應的題庫
-    const topics = grade === '中一' ? ['御人之妻'] : ['廉頗藺相如列傳', '出師表', '師說'];
+    // 根據年級設置題庫
+    let topics;
+    if (grade === '中一') {
+        topics = ['御人之妻'];
+    } else if (grade === '中四') {
+        topics = ['師說'];
+    } else if (grade === '中五') {
+        topics = ['廉頗藺相如列傳', '出師表'];
+    } else {
+        topics = []; // 預設空陣列，防止未定義
+    }
+        
     const topicList = document.getElementById('topicList');
     topicList.innerHTML = '';
     topics.forEach(topic => {
@@ -3100,8 +3110,18 @@ function selectSinglePlayerClass(className) {
     document.getElementById('singlePlayerGradeSelection').style.display = 'none';
     document.getElementById('singlePlayerTopicDetail').style.display = 'block';
 
-    // 根據年級加載相應的題庫
-    const topics = grade === '中一' ? ['御人之妻'] : ['廉頗藺相如列傳', '出師表', '師說'];
+   // 根據年級設置題庫
+    let topics;
+    if (grade === '中一') {
+        topics = ['御人之妻'];
+    } else if (grade === '中四') {
+        topics = ['師說'];
+    } else if (grade === '中五') {
+        topics = ['廉頗藺相如列傳', '出師表'];
+    } else {
+        topics = []; // 預設空陣列，防止未定義
+    }
+        
     const topicList = document.getElementById('singlePlayerTopicList');
     topicList.innerHTML = '';
     topics.forEach(topic => {
