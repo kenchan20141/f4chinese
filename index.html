@@ -15,6 +15,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
     <style>  
 
+        .topic-btn {
+    white-space: normal; /* 允許文字換行 */
+    word-wrap: break-word; /* 長詞自動換行 */
+    height: auto; /* 按鈕高度自適應 */
+    padding: 1rem; /* 增加內邊距 */
+}
+
 .difficulty-icon {
     width: 140px;
     height: 140px;
@@ -1195,8 +1202,11 @@
     <h2 style="color: #d4af37; text-align: center;">選擇題庫</h2>
     <div id="gradeSelection" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem; width: 300px;">
         <button onclick="selectGrade('中一')" class="grade-btn">中一</button>
+        <button onclick="selectGrade('中二')" class="grade-btn">中二</button>
+        <button onclick="selectGrade('中三')" class="grade-btn">中三</button>
         <button onclick="selectGrade('中四')" class="grade-btn">中四</button>
         <button onclick="selectGrade('中五')" class="grade-btn">中五</button>
+        <button onclick="selectGrade('【中史】')" class="grade-btn">【中史】</button>
     </div>
     <div id="topicDetail" style="display: none; margin-top: 1rem;">
         <h3 id="selectedGrade" style="color: #d4af37; text-align: center;"></h3>
@@ -1348,8 +1358,11 @@
     <h2 style="color: #d4af37; text-align: center;">選擇題庫</h2>
     <div id="singlePlayerGradeSelection" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem; width: 300px;">
         <button onclick="selectSinglePlayerGrade('中一')" class="grade-btn">中一</button>
+        <button onclick="selectSinglePlayerGrade('中二')" class="grade-btn">中二</button>
+        <button onclick="selectSinglePlayerGrade('中三')" class="grade-btn">中三</button>
         <button onclick="selectSinglePlayerGrade('中四')" class="grade-btn">中四</button>
         <button onclick="selectSinglePlayerGrade('中五')" class="grade-btn">中五</button>
+        <button onclick="selectSinglePlayerGrade('【中史】')" class="grade-btn">【中史】</button>
     </div>
     <div id="singlePlayerTopicDetail" style="display: none; margin-top: 1rem;">
         <h3 id="singlePlayerSelectedGrade" style="color: #d4af37; text-align: center;"></h3>
@@ -1508,15 +1521,23 @@ database.ref(`rooms/${currentRoomId}/${playerPath}`).update({
     // 根據年級設置題庫
     let topics;
     if (grade === '中一') {
-        topics = ['御人之妻'];
+        topics = ['楊修之死','背影','燕詩','御人之妻','故宮博物院','風雪中的北平'];
+    } else if (grade === '中二') {
+        topics = ['回家','差不多先生傳','在風中','桃花源記','為學一首示子姪','愛蓮說'];
+        } else if (grade === '中三') {
+        topics = ['水調歌頭','爸爸的花兒落了','鈷鉧潭記','消失中的特色街道','孔明借箭','最苦與最樂'];
     } else if (grade === '中四') {
-        topics = ['師說'];
+        topics = ['山居秋暝','月下獨酌','登樓','論仁論孝論君子','魚我所欲也','師說'];
     } else if (grade === '中五') {
-        topics = ['廉頗藺相如列傳', '出師表'];
+        topics = ['念奴嬌','聲聲慢','青玉案','岳陽樓記', '始得西山宴遊記', '廉頗藺相如列傳', '出師表', '逍遙遊'];
+    } else if (grade === '【中史】') {
+        topics = [
+            '單元二 第二章 【兩漢的政治發展對與中外文化交流】',
+            '單元三 第一章 【魏晉南北朝的分裂與政權更替】'
+        ];
     } else {
         topics = []; // 預設空陣列，防止未定義
     }
-        
     const topicList = document.getElementById('topicList');
     topicList.innerHTML = '';
     topics.forEach(topic => {
@@ -1994,6 +2015,7 @@ projectId: "f4chinese-79be0",
 storageBucket: "f4chinese-79be0.firebasestorage.app",
 messagingSenderId: "530828591792",
 appId: "1:530828591792:web:6b7bef75d3512c3594f175"
+
 
 };
 firebase.initializeApp(firebaseConfig);
@@ -3112,18 +3134,26 @@ function selectSinglePlayerClass(className) {
     document.getElementById('singlePlayerGradeSelection').style.display = 'none';
     document.getElementById('singlePlayerTopicDetail').style.display = 'block';
 
-   // 根據年級設置題庫
+    // 根據年級設置題庫
     let topics;
     if (grade === '中一') {
-        topics = ['御人之妻'];
+        topics = ['楊修之死','背影','燕詩','御人之妻','故宮博物院','風雪中的北平'];
+     } else if (grade === '中二') {
+        topics = ['回家','差不多先生傳','在風中','桃花源記','為學一首示子姪','愛蓮說'];
+    } else if (grade === '中三') {
+        topics = ['水調歌頭','爸爸的花兒落了','鈷鉧潭記','消失中的特色街道','孔明借箭','最苦與最樂'];
     } else if (grade === '中四') {
-        topics = ['師說'];
+        topics = ['山居秋暝','月下獨酌','登樓','論仁論孝論君子','魚我所欲也','師說'];
     } else if (grade === '中五') {
-        topics = ['廉頗藺相如列傳', '出師表'];
+        topics = ['念奴嬌','聲聲慢','青玉案','岳陽樓記','始得西山宴遊記', '廉頗藺相如列傳', '出師表', '逍遙遊'];
+    } else if (grade === '【中史】') {
+        topics = [
+            '單元二 第二章 【兩漢的政治發展對與中外文化交流】',
+            '單元三 第一章 【魏晉南北朝的分裂與政權更替】'
+        ];
     } else {
         topics = []; // 預設空陣列，防止未定義
     }
-        
     const topicList = document.getElementById('singlePlayerTopicList');
     topicList.innerHTML = '';
     topics.forEach(topic => {
@@ -3572,14 +3602,13 @@ function showEffect(className) {
             // 更新用戶數據到資料庫
             userRef.set(userData);
 
-
+            // 添加的代碼：更新排行榜
             const leaderboardRef = database.ref('leaderboard/' + user.uid);
-leaderboardRef.set({
-    name: user.displayName,
-    score: userData.score,
-    level: userData.level
-});
-
+            leaderboardRef.set({
+                name: user.displayName,
+                score: userData.score,
+                level: userData.level
+            });
 
             // 创建统计弹窗
             const statsOverlay = document.createElement('div');
