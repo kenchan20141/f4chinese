@@ -2838,16 +2838,18 @@ function displayQuestion(question) {
 
 
 function startTimer() {
-    clearInterval(timer);
-    // 新增以下兩行重置動畫狀態
-    document.getElementById('gameArea').classList.remove('screen-shake');
-    document.querySelectorAll('.health-fill').forEach(bar => bar.classList.remove('damage-effect'));
-    timeLeft = 15;
-    document.getElementById('timer').textContent = `🕒${timeLeft}秒`;
+    let timeLeft = 15;
+    document.getElementById('timer').textContent = `🕒${timeLeft}`;
     timer = setInterval(() => {
         timeLeft--;
-        document.getElementById('timer').textContent = `🕒${timeLeft}秒`;
-        if (timeLeft <= 0) checkAnswer(false);
+        document.getElementById('timer').textContent = `🕒${timeLeft}`;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            if (!answered && !gameOver) {
+                console.log('Timer ended, checking answer as incorrect');
+                checkAnswerSinglePlayer(false, currentQuestion.id);
+            }
+        }
     }, 1000);
 }
 
